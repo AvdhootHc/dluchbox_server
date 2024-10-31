@@ -1,0 +1,31 @@
+Place order APi == POST http://localhost:5001/api/v1/order/place-order -
+
+{
+  "foodItems": [
+    {
+      "foodItemId": "5751e3e5-050a-4a83-a675-fffd58b86897",
+      "quantity": 1
+    },
+    {
+      "foodItemId": "1911ac82-6442-4ab6-bb0b-418acdf4cce4",
+      "quantity": 1
+    }
+  ],
+  "mealType": "Lunch",
+  "note": "Please deliver at the side door."
+}
+
+
+
+
+Place item APi == POST http://localhost:5001/api/v1/foodItems -
+
+
+{
+    "name":"Sushi",
+    "description":"A Japanese dish consisting of small rolls of vinegared rice filled with raw fish, vegetables, or other ingredients, often wrapped in seaweed",
+    "price":203.10,
+    "itemType":"Veg"
+
+}
+
