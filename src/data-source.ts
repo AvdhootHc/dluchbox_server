@@ -6,6 +6,7 @@ import { MyOrders } from './entity/myOrder.entity';
 import { FoodItems } from './entity/foodItems.entity';
 import { OrderItemsMap } from './entity/order_items_mapping.entity';
 import { CustomerReviews } from './entity/customerReview.entity';
+import { DeliveryBoy } from './entity/deliveryBoy.entity';
 
 dotenv.config();
 
@@ -35,7 +36,7 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: [User, MyOrders, FoodItems, OrderItemsMap, CustomerReviews],
+  entities: [User, MyOrders, FoodItems, OrderItemsMap, CustomerReviews, DeliveryBoy],
   migrations: [__dirname + '/migrations/*.ts'],
   subscribers: [],
 });

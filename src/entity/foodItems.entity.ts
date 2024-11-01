@@ -16,8 +16,8 @@ export class FoodItems {
   @Column({ type: 'enum', enum: IFood_type, nullable: false })
   food_type: IFood_type;
 
-  // @Column({ type: 'enum', enum: IMeal_type, nullable: false })
-  // meal_type: IMeal_type;
+  @Column({ type: 'enum', enum: IMeal_type, nullable: true })
+  meal_type: IMeal_type;
 
   @Column({ type: 'enum', enum: IItem_status, default: IItem_status.Active, nullable: false })
   status: IItem_status;

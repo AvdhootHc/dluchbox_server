@@ -26,6 +26,8 @@ Place item APi == POST http://localhost:5001/api/v1/foodItems -
     "description":"A Japanese dish consisting of small rolls of vinegared rice filled with raw fish, vegetables, or other ingredients, often wrapped in seaweed",
     "price":203.10,
     "itemType":"Veg"
+    "mealType":"Both"
+
 
 }
 

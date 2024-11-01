@@ -34,7 +34,7 @@ export class foodItemsService {
   }
 
   static async createFoodItem(req: Request, res: Response) {
-    const { name, description, itemType, price } = req.body;
+    const { name, description, itemType, price, mealType } = req.body;
     const userId = req[' currentUser'].id;
 
     try {
@@ -48,6 +48,7 @@ export class foodItemsService {
           description: description,
           food_type: itemType,
           price: price,
+          meal_type: mealType,
         })
         .execute();
 

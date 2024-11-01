@@ -8,7 +8,8 @@ export enum IFood_type {
 export enum IMeal_type {
 
     Lunch = 'Lunch',
-    Dinner ='Dinner'
+    Dinner ='Dinner',
+    Both ='Both'
 
 }
 
