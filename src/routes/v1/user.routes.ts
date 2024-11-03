@@ -8,7 +8,7 @@ import { emailAuth } from '../../middlewares/emailAuth.middleware';
 
 const Router = express.Router();
 
-Router.get('/profile', authentification, authorization(['user', 'admin']), getProfileController);
+Router.get('/profile', authentification, getProfileController);
 
 Router.get('/verify', emailAuth);
 

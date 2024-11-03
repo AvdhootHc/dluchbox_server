@@ -101,4 +101,38 @@ export class foodItemsService {
       });
     }
   }
+
+  static async getMultipleFoodItemsDetails(req: Request, res: Response) {
+    const { ids } = req.query;
+
+    if (!ids) {
+      return res.status(404).json({
+        message: "Please provide food items Id's",
+      });
+    }
+
+    const uuids = (ids as string).split(',');
+
+    try {
+      const foodItems = await AppDataSource.getRepository(FoodItems)
+        .createQueryBuilder('food_item')
+        .where('food_item.id IN (:...uuids)', { uuids })
+        .getMany();
+
+      if (!foodItems) {
+        return res.status(404).json({
+          message: 'found items not found',
+        });
+      }
+
+      return res.status(200).json({
+        message: 'food items details fetch sucessfully',
+        data: foodItems,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: 'Something went wrong while getting id details',
+      });
+    }
+  }
 }
