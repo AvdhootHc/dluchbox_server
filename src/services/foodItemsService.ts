@@ -1,12 +1,21 @@
 import { AppDataSource } from '../data-source';
 import { FoodItems } from '../entity/foodItems.entity';
-import { IItem_status } from '../utils/data/enums';
+import { IFood_type, IItem_status } from '../utils/data/enums';
 import { Request, Response } from 'express';
 import { SelectQueryBuilder } from 'typeorm';
 
 export class foodItemsService {
   static async getFoodItems(req: Request, res: Response) {
     const { top, skip, search, filter } = req.query;
+    var mainFilter = '';
+
+    if (filter == 'Veg') {
+      mainFilter = IFood_type.Veg;
+    } else if (filter == 'Non-veg') {
+      mainFilter = IFood_type.Nonveg;
+    } else {
+      mainFilter = '';
+    }
 
     let skipcount = skip ? parseInt(skip as string) : 0;
     let topcount = parseInt(top as string) || 5;
@@ -15,6 +24,10 @@ export class foodItemsService {
       let queryBuilder: SelectQueryBuilder<FoodItems> = AppDataSource.getRepository(FoodItems)
         .createQueryBuilder('food_items')
         .andWhere('food_items.status = :mainStatus', { mainStatus: IItem_status.Active });
+
+      if (mainFilter) {
+        queryBuilder = queryBuilder.andWhere('food_items.food_type = :foodType', { foodType: mainFilter });
+      }
 
       queryBuilder = queryBuilder.skip(skipcount).take(topcount);
 
@@ -59,6 +72,32 @@ export class foodItemsService {
       return res.status(500).json({
         message: 'something went wrong while creating item !',
         error: error,
+      });
+    }
+  }
+
+  static async getFoodIntemInformation(req: Request, res: Response) {
+    const { id } = req.params;
+
+    try {
+      const foodItem = await AppDataSource.getRepository(FoodItems)
+        .createQueryBuilder('food_item')
+        .where('food_item.id =  :itemId', { itemId: id })
+        .getOne();
+
+      if (!foodItem) {
+        return res.status(404).json({
+          message: 'Food item not found!',
+        });
+      }
+
+      return res.status(200).json({
+        message: 'Food item fetch sucessfully',
+        data: foodItem,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: 'something went wrong while getting Food item Info',
       });
     }
   }
