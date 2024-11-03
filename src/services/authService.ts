@@ -43,14 +43,29 @@ export class AuthService {
   }
 
   static async getProfile(req: Request, res: Response) {
-    if (!req[' currentUser']) {
-      return res.status(401).json({ message: 'Unauthorized' });
+    const { id } = req[' currentUser'];
+
+    try {
+      if (!req[' currentUser']) {
+        return res.status(401).json({ message: 'Unauthorized' });
+      }
+      const userRepository = AppDataSource.getRepository(User);
+      const user = await userRepository.findOne({
+        where: { id: id },
+      });
+
+      if (!user) {
+        return res.status(404).json({
+          message: 'User not found',
+        });
+      }
+
+      return res.status(200).json({ ...user, password: undefined });
+    } catch (error) {
+      return res.status(500).json({
+        message: 'Something went wrong while getting user details',
+      });
     }
-    const userRepository = AppDataSource.getRepository(User);
-    const user = await userRepository.findOne({
-      where: { id: req[' currentUser'].id },
-    });
-    return res.status(200).json({ ...user, password: undefined });
   }
 
   static async signup(req: Request, res: Response) {
