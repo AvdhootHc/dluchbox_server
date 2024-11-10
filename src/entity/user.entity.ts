@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, OneToMany } from 'typeorm';
 import { MyOrders } from './myOrder.entity';
 import { CustomerReviews } from './customerReview.entity';
+import { Mealbox } from './mealBox.entity';
 
 @Entity({ name: 'users' })
 export class User {
@@ -36,6 +37,9 @@ export class User {
 
   @OneToMany(() => MyOrders, (order) => order.user)
   my_orders: MyOrders[];
+
+  @OneToMany(() => Mealbox, (mealBox) => mealBox.user)
+  mealBoxes: Mealbox[];
 
   @OneToMany(() => CustomerReviews, (review) => review.user)
   review: CustomerReviews[];

@@ -1,7 +1,7 @@
 import { IMeal_type, IUser_order } from '../utils/data/enums';
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany } from 'typeorm';
 import { User } from './user.entity';
-import { OrderItemsMap } from './order_items_mapping.entity';
+import { Mealbox } from './mealBox.entity';
 
 @Entity({ name: 'my_order' })
 export class MyOrders {
@@ -32,8 +32,14 @@ export class MyOrders {
   @Column({ nullable: false, length: 250 })
   note: string;
 
-  @OneToMany(() => OrderItemsMap, (orderItem) => orderItem.order)
-  orderItems: OrderItemsMap[];
+  @Column({ type: 'varchar', nullable: true })
+  deliveryAdress: string;
+
+  // @OneToMany(() => OrderItemsMap, (orderItem) => orderItem.order)
+  // orderItems: OrderItemsMap[];
+
+  @OneToMany(() => Mealbox, (mealBox) => mealBox.order)
+  mealBoxes: Mealbox[];
 
   @Column({ type: 'boolean', nullable: true, default: false })
   is_deleted: boolean;

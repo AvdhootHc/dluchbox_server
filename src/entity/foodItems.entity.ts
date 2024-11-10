@@ -1,6 +1,6 @@
 import { IFood_type, IItem_status, IMeal_type } from '../utils/data/enums';
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, OneToMany } from 'typeorm';
-import { OrderItemsMap } from './order_items_mapping.entity';
+// import { OrderItemsMap } from './order_items_mapping.entity';
 
 @Entity({ name: 'food_items' })
 export class FoodItems {
@@ -22,8 +22,8 @@ export class FoodItems {
   @Column({ type: 'enum', enum: IItem_status, default: IItem_status.Active, nullable: false })
   status: IItem_status;
 
-  @OneToMany(() => OrderItemsMap, (orderItem) => orderItem.food_item)
-  orderItems: OrderItemsMap[];
+  // @OneToMany(() => OrderItemsMap, (orderItem) => orderItem.food_item)
+  // orderItems: OrderItemsMap[];
 
   @Column('decimal', { precision: 10, scale: 2 })
   price: number;
