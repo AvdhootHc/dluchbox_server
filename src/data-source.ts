@@ -4,9 +4,10 @@ import { User } from './entity/user.entity';
 import * as dotenv from 'dotenv';
 import { MyOrders } from './entity/myOrder.entity';
 import { FoodItems } from './entity/foodItems.entity';
-import { OrderItemsMap } from './entity/order_items_mapping.entity';
+// import { OrderItemsMap } from './entity/order_items_mapping.entity';
 import { CustomerReviews } from './entity/customerReview.entity';
 import { DeliveryBoy } from './entity/deliveryBoy.entity';
+import { Mealbox } from './entity/mealBox.entity';
 
 dotenv.config();
 
@@ -36,7 +37,7 @@ export const AppDataSource = new DataSource({
   database: process.env.DB_NAME,
   synchronize: true,
   logging: false,
-  entities: [User, MyOrders, FoodItems, OrderItemsMap, CustomerReviews, DeliveryBoy],
+  entities: [User, MyOrders, CustomerReviews, DeliveryBoy, Mealbox],
   migrations: [__dirname + '/migrations/*.ts'],
   subscribers: [],
 });
